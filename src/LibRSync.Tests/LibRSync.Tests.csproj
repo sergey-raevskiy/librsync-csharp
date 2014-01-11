@@ -47,6 +47,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <EmbeddedResource Include="TestData\changes.input\01.in" />
+    <EmbeddedResource Include="TestData\changes.input\02.in" />
+    <EmbeddedResource Include="TestData\changes.input\03.in" />
+    <EmbeddedResource Include="TestData\changes.input\04.in" />
+    <EmbeddedResource Include="TestData\delta.input\01.delta" />
+    <EmbeddedResource Include="TestData\delta.input\01.expect" />
+    <EmbeddedResource Include="TestData\delta.input\02.delta" />
+    <EmbeddedResource Include="TestData\delta.input\02.expect" />
+    <EmbeddedResource Include="TestData\delta.input\03.delta" />
+    <EmbeddedResource Include="TestData\delta.input\03.expect" />
+    <EmbeddedResource Include="TestData\mdfour.input\01.data" />
+    <EmbeddedResource Include="TestData\mdfour.input\01.expect" />
+    <EmbeddedResource Include="TestData\mksum.input\COPYING.sig" />
+    <EmbeddedResource Include="TestData\signature.input\01.in" />
+    <EmbeddedResource Include="TestData\signature.input\01.sig" />
+    <EmbeddedResource Include="TestData\triple.input\copying.in" />
+    <EmbeddedResource Include="TestData\triple.input\half.in" />
+    <EmbeddedResource Include="TestData\triple.input\hello.in" />
+    <EmbeddedResource Include="TestData\triple.input\zero.in" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
