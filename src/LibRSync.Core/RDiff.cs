@@ -13,6 +13,8 @@ namespace LibRSync.Core
 
         public void Patch(Stream @base, Stream delta, Stream @new)
         {
+            var job = new Patch(@base, delta, @new);
+            job.Run();
         }
     }
 }
