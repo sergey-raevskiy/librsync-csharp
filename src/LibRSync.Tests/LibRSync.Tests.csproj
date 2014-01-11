@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="SignatureTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -66,6 +67,12 @@
     <EmbeddedResource Include="TestData\triple.input\half.in" />
     <EmbeddedResource Include="TestData\triple.input\hello.in" />
     <EmbeddedResource Include="TestData\triple.input\zero.in" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibRSync.Core\LibRSync.Core.csproj">
+      <Project>{732DB33E-9ACB-4614-BA50-9194A53D3133}</Project>
+      <Name>LibRSync.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
