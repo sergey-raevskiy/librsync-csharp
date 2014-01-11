@@ -10,5 +10,9 @@ namespace LibRSync.Core
             var job = new Signature(input, signature);
             job.Run();
         }
+
+        public void Patch(Stream @base, Stream delta, Stream @new)
+        {
+        }
     }
 }
