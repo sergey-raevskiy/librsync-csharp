@@ -37,9 +37,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Checksum.cs" />
+    <Compile Include="OpKind.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Md4.cs" />
     <Compile Include="NetInt.cs" />
