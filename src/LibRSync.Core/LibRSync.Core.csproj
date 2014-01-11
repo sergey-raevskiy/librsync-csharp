@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NetInt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RDiff.cs" />
   </ItemGroup>

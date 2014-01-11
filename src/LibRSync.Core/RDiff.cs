@@ -36,15 +36,6 @@ namespace LibRSync.Core
             return (s1 & 0xffff) + (s2 << 16);
         }
 
-        private void WriteInt(Stream s, int i)
-        {
-            var bytes = BitConverter.GetBytes(i);
-            Array.Reverse(bytes);
-
-            s.Write(bytes, 0, bytes.Length);
-        }
-
-
         public class MD4 : HashAlgorithm
         {
             private uint _a;
@@ -213,9 +204,9 @@ namespace LibRSync.Core
 
         public void GetSignature(Stream input, Stream signature)
         {
-            WriteInt(signature, RS_SIG_MAGIC);
-            WriteInt(signature, 2048);
-            WriteInt(signature, 8);
+            NetInt.Write(signature, RS_SIG_MAGIC);
+            NetInt.Write(signature, 2048);
+            NetInt.Write(signature, 8);
 
             var buf = new byte[2048];
 
@@ -225,7 +216,7 @@ namespace LibRSync.Core
                 if (len < 1) break;
 
                 var weak = CalcWeakSum(buf, len);
-                WriteInt(signature, (int) weak);
+                NetInt.Write(signature, (int) weak);
 
                 using (HashAlgorithm hash = new MD4())
                 {
