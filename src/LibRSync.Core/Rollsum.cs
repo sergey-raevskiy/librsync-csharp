@@ -4,11 +4,13 @@
     {
         private uint s1;
         private uint s2;
+        private int count;
 
         public Rollsum()
         {
             s1 = 0;
             s2 = 0;
+            count = 0;
         }
 
         private unsafe void DO1(byte* buf, int i)
@@ -47,8 +49,30 @@
             s2 += 136*off;
         }
 
+        public void Rotate(byte @in, byte @out)
+        {
+            s1 += (uint) (@in - @out);
+            s2 += (uint) (s1 - count*(@out + Checksum.RS_CHAR_OFFSET));
+        }
+
+        public void Rollin(byte c)
+        {
+            s1 += (c + Checksum.RS_CHAR_OFFSET);
+            s2 += s1;
+            count++;
+        }
+
+        public void Rollout(byte c)
+        {
+            s1 -= (c + Checksum.RS_CHAR_OFFSET);
+            s2 -= (uint) (count*(c + Checksum.RS_CHAR_OFFSET));
+            count--;
+        }
+
         public unsafe void Update(byte[] buf, int len)
         {
+            count += len;
+
             fixed (byte* p = buf)
             {
                 var pbuf = p;
