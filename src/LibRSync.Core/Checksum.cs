@@ -1,8 +1,8 @@
 ﻿namespace LibRSync.Core
 {
-    internal class Checksum
+    public class Checksum
     {
-        private const uint RS_CHAR_OFFSET = 31;
+        public const uint RS_CHAR_OFFSET = 31;
 
         public static uint Weak(byte[] buf, int len)
         {
