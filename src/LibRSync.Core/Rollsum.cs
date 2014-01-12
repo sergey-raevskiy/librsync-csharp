@@ -75,5 +75,4 @@
             get { return (s2 << 16) + (s1 & 0xffff); }
         }
     }
-
 }
