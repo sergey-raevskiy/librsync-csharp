@@ -2,7 +2,7 @@
 
 namespace LibRSync.Core
 {
-    internal class Signature : Job
+    internal class SignatureJob : Job
     {
         private const int RS_SIG_MAGIC = 0x72730136;
 
@@ -11,7 +11,7 @@ namespace LibRSync.Core
 
         private byte[] chunk = new byte[2048];
 
-        public Signature(Stream input, Stream signature)
+        public SignatureJob(Stream input, Stream signature)
             : base("signature")
         {
             this.input = input;

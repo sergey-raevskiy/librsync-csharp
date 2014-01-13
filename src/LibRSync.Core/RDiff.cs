@@ -7,19 +7,19 @@ namespace LibRSync.Core
     {
         public void GetSignature(Stream input, Stream signature)
         {
-            var job = new Signature(input, signature);
+            var job = new SignatureJob(input, signature);
             job.Run();
         }
 
         public void Patch(Stream @base, Stream delta, Stream @new)
         {
-            var job = new Patch(@base, delta, @new);
+            var job = new PatchJob(@base, delta, @new);
             job.Run();
         }
 
         public void GetDelta(Stream signature, Stream @new, Stream delta)
         {
-            var job = new Delta(signature, @new, delta);
+            var job = new DeltaJob(signature, @new, delta);
             job.Run();
         }
     }

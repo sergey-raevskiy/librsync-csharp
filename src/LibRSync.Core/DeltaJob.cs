@@ -2,13 +2,13 @@
 
 namespace LibRSync.Core
 {
-    class Delta : Job
+    class DeltaJob : Job
     {
         private Stream signature;
         private Stream @new;
         private Stream delta;
 
-        public Delta(Stream signature, Stream @new, Stream delta)
+        public DeltaJob(Stream signature, Stream @new, Stream delta)
             : base("delta")
         {
             this.signature = signature;

@@ -63,7 +63,7 @@ namespace LibRSync.Core
         }
     }
 
-    internal class Patch : Job
+    internal class PatchJob : Job
     {
         private const int RS_DELTA_MAGIC = 0x72730236;
 
@@ -75,7 +75,7 @@ namespace LibRSync.Core
         private long param1;
         private long param2;
 
-        public Patch(Stream @base, Stream delta, Stream @new) : base("patch")
+        public PatchJob(Stream @base, Stream delta, Stream @new) : base("patch")
         {
             this.@base = @base;
             this.delta = delta;
