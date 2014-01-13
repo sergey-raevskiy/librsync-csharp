@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeltaTests.cs" />
     <Compile Include="PatchTests.cs" />
     <Compile Include="RollsumTests.cs" />
     <Compile Include="SignatureTests.cs" />
