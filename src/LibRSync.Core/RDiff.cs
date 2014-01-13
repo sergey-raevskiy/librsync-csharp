@@ -19,6 +19,8 @@ namespace LibRSync.Core
 
         public void GetDelta(Stream signature, Stream @new, Stream delta)
         {
+            var job = new Delta(signature, @new, delta);
+            job.Run();
         }
     }
 }
