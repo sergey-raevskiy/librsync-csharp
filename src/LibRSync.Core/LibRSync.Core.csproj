@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Checksum.cs" />
     <Compile Include="DeltaJob.cs" />
+    <Compile Include="IDeltaProcessor.cs" />
     <Compile Include="OpKind.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Md4.cs" />

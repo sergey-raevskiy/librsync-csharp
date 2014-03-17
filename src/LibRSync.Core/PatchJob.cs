@@ -63,13 +63,37 @@ namespace LibRSync.Core
         }
     }
 
+    internal class PatchProcessor : IDeltaProcessor
+    {
+        private readonly Stream @base;
+        private readonly Stream @new;
+
+        public PatchProcessor(Stream @base, Stream @new)
+        {
+            this.@new = @new;
+            this.@base = @base;
+        }
+
+        public void Copy(long start, long length)
+        {
+            @base.Seek(start, SeekOrigin.Begin);
+            var buf = new byte[length];
+            @base.Read(buf, 0, buf.Length);
+            @new.Write(buf, 0, buf.Length);
+        }
+
+        public void Literal(byte[] data, long offset, long count)
+        {
+            @new.Write(data, (int) offset, (int) count);
+        }
+    }
+
     internal class PatchJob : Job
     {
         private const int RS_DELTA_MAGIC = 0x72730236;
 
-        private readonly Stream @base;
         private readonly Stream delta;
-        private readonly Stream @new;
+        private readonly IDeltaProcessor deltaProcessor;
 
         private Opcode cmd;
         private long param1;
@@ -77,9 +101,8 @@ namespace LibRSync.Core
 
         public PatchJob(Stream @base, Stream delta, Stream @new) : base("patch")
         {
-            this.@base = @base;
             this.delta = delta;
-            this.@new = @new;
+            this.deltaProcessor = new PatchProcessor(@base, @new);
         }
 
         protected override StateFunc InitialState()
@@ -99,17 +122,14 @@ namespace LibRSync.Core
         {
             var buf = new byte[param1];
             delta.Read(buf, 0, buf.Length);
-            @new.Write(buf, 0, buf.Length);
+            deltaProcessor.Literal(buf, 0, buf.Length);
 
             return CommandByte;
         }
 
         private StateFunc Copy()
         {
-            @base.Seek(param1, SeekOrigin.Begin);
-            var buf = new byte[param2];
-            @base.Read(buf, 0, buf.Length);
-            @new.Write(buf, 0, buf.Length);
+            deltaProcessor.Copy(param1, param2);
 
             return CommandByte;
         }
