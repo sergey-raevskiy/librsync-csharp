@@ -2,12 +2,38 @@
 
 namespace LibRSync.Core
 {
-    internal class SignatureJob : Job
+    internal class StreamProcessor : ISignatureProcessor
     {
         private const int RS_SIG_MAGIC = 0x72730136;
 
+        private readonly Stream stream;
+        private int strongLength;
+
+        public StreamProcessor(Stream stream)
+        {
+            this.stream = stream;
+        }
+
+        public void Header(int chunkSize, int strongLength)
+        {
+            NetInt.Write(stream, RS_SIG_MAGIC);
+            NetInt.Write(stream, chunkSize);
+            NetInt.Write(stream, strongLength);
+
+            this.strongLength = strongLength;
+        }
+
+        public void Chunk(long weak, byte[] strong)
+        {
+            NetInt.Write(stream, (int)weak);
+            stream.Write(strong, 0, strongLength);
+        }
+    }
+
+    internal class SignatureJob : Job
+    {
         private Stream input;
-        private Stream signature;
+        private StreamProcessor processor;
 
         private byte[] chunk = new byte[2048];
 
@@ -15,7 +41,7 @@ namespace LibRSync.Core
             : base("signature")
         {
             this.input = input;
-            this.signature = signature;
+            this.processor = new StreamProcessor(signature);
         }
 
         protected override StateFunc InitialState()
@@ -25,9 +51,7 @@ namespace LibRSync.Core
 
         private StateFunc Header()
         {
-            NetInt.Write(signature, RS_SIG_MAGIC);
-            NetInt.Write(signature, 2048);
-            NetInt.Write(signature, 8);
+            processor.Header(2048, 8);
 
             return Generate;
         }
@@ -38,10 +62,9 @@ namespace LibRSync.Core
             if (len < 1) return Completed;
 
             var weak = Checksum.Weak(chunk, len);
-            NetInt.Write(signature, (int) weak);
-
             var strong = Checksum.Strong(chunk, len);
-            signature.Write(strong, 0, 8);
+
+            processor.Chunk(weak, strong);
 
             return Generate;
         }
