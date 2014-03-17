@@ -33,15 +33,15 @@ namespace LibRSync.Core
     internal class SignatureJob : Job
     {
         private Stream input;
-        private StreamProcessor processor;
+        private ISignatureProcessor processor;
 
         private byte[] chunk = new byte[2048];
 
-        public SignatureJob(Stream input, Stream signature)
+        public SignatureJob(Stream input, ISignatureProcessor processor)
             : base("signature")
         {
             this.input = input;
-            this.processor = new StreamProcessor(signature);
+            this.processor = processor;
         }
 
         protected override StateFunc InitialState()

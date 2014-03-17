@@ -7,7 +7,8 @@ namespace LibRSync.Core
     {
         public void GetSignature(Stream input, Stream signature)
         {
-            var job = new SignatureJob(input, signature);
+            var processor = new StreamProcessor(signature);
+            var job = new SignatureJob(input, processor);
             job.Run();
         }
 
