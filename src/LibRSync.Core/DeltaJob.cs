@@ -17,6 +17,9 @@ namespace LibRSync.Core
 
         private List<byte> miss = new List<byte>();
 
+        private long copyBase = 0;
+        private long copyLen = 0;
+
         public DeltaJob(Signature signature,
                         Stream @new,
                         IDeltaProcessor processor)
@@ -48,6 +51,11 @@ namespace LibRSync.Core
 
         private StateFunc Flush()
         {
+            if (copyLen != 0)
+            {
+                processor.Copy(copyBase, copyLen);
+            }
+
             if (miss.Count != 0)
             {
                 processor.Literal(miss.ToArray(), 0, miss.Count);
@@ -77,7 +85,7 @@ namespace LibRSync.Core
                         miss.Clear();
                     }
 
-                    processor.Copy(block.Start, chunkLen);
+                    AppendCopy(block.Start, chunkLen);
 
                     return ReadChunk;
                 }
@@ -86,8 +94,32 @@ namespace LibRSync.Core
             return Rotate;
         }
 
+        private void AppendCopy(long start, int i)
+        {
+            if (copyBase + copyLen == start)
+            {
+                copyLen += i;
+            }
+            else
+            {
+                if (copyLen != 0)
+                {
+                    processor.Copy(copyBase, copyLen);
+                }
+
+                copyBase = start;
+                copyLen = i;
+            }
+        }
+
         private StateFunc Rotate()
         {
+            if (copyLen != 0)
+            {
+                processor.Copy(copyBase, copyLen);
+                copyLen = 0;
+            }
+
             if (chunkLen == 0)
             {
                 return Flush;
