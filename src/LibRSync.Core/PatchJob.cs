@@ -47,7 +47,7 @@ namespace LibRSync.Core
 
             foreach (var len1 in lens)
                 foreach (var len2 in lens)
-                    Emit(OpKind.Literal, 0, len1, len2);
+                    Emit(OpKind.Copy, 0, len1, len2);
 
             Debug.Assert(prototypes.Count == 85);
 
