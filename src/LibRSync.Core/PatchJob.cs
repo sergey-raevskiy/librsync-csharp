@@ -63,7 +63,7 @@ namespace LibRSync.Core
         }
     }
 
-    internal class PatchProcessor : IDeltaProcessor
+    public class PatchProcessor : IDeltaProcessor
     {
         private readonly Stream @base;
         private readonly Stream @new;

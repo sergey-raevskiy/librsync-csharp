@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Checksum.cs" />
     <Compile Include="Const.cs" />
+    <Compile Include="DeltaEmitter.cs" />
     <Compile Include="DeltaJob.cs" />
     <Compile Include="IDeltaProcessor.cs" />
     <Compile Include="ISignatureProcessor.cs" />

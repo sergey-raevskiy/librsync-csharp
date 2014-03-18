@@ -21,14 +21,14 @@ namespace LibRSync.Core
             this.strongLength = strongLength;
         }
 
-        public void Chunk(long weak, byte[] strong)
+        public void Chunk(uint weak, byte[] strong)
         {
             NetInt.Write(stream, (int)weak);
             stream.Write(strong, 0, strongLength);
         }
     }
 
-    internal class SignatureJob : Job
+    public class SignatureJob : Job
     {
         private Stream input;
         private ISignatureProcessor processor;

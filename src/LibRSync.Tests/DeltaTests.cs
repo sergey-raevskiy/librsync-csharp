@@ -25,22 +25,20 @@ namespace LibRSync.Tests
         [TestCase("changes.input.04.in", "changes.input.04.in")]
         public void TripleTest(string oldName, string newName)
         {
-            var rdiff = new RDiff();
-
             using (var old = GetTestDataStream(oldName))
+            using (var old2 = GetTestDataStream(oldName))
             using (var @new = GetTestDataStream(newName))
-            using (var signature = new MemoryStream())
-            using (var delta = new MemoryStream())
             using (var actual = new MemoryStream())
             {
-                rdiff.GetSignature(old, signature);
+                var builder = new SignatureBuilder();
+                var sigJob = new SignatureJob(old, builder);
+                sigJob.Run();
 
-                signature.Seek(0, SeekOrigin.Begin);
-                rdiff.GetDelta(signature, @new, delta);
-
-                delta.Seek(0, SeekOrigin.Begin);
                 old.Seek(0, SeekOrigin.Begin);
-                rdiff.Patch(old, delta, actual);
+
+                var proc = new PatchProcessor(old2, actual);
+                var deltaJob = new DeltaJob(builder.GetSignature(), @new, proc);
+                deltaJob.Run();
 
                 actual.Seek(0, SeekOrigin.Begin);
                 @new.Seek(0, SeekOrigin.Begin);

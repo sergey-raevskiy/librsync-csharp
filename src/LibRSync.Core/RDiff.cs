@@ -20,7 +20,13 @@ namespace LibRSync.Core
 
         public void GetDelta(Stream signature, Stream @new, Stream delta)
         {
-            var job = new DeltaJob(signature, @new, delta);
+            var builder = new SignatureBuilder();
+            var sigJob = new SignatureLoadJob(signature, builder);
+            sigJob.Run();
+
+            var processor = new DeltaEmitter(delta);
+
+            var job = new DeltaJob(builder.GetSignature(), @new, processor);
             job.Run();
         }
     }
