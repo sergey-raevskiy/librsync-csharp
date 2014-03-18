@@ -2,7 +2,7 @@
 
 namespace LibRSync.Core
 {
-    internal abstract class Job
+    public abstract class Job
     {
         protected delegate StateFunc StateFunc();
 

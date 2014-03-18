@@ -4,8 +4,6 @@ namespace LibRSync.Core
 {
     internal class StreamProcessor : ISignatureProcessor
     {
-        private const int RS_SIG_MAGIC = 0x72730136;
-
         private readonly Stream stream;
         private int strongLength;
 
@@ -16,7 +14,7 @@ namespace LibRSync.Core
 
         public void Header(int chunkSize, int strongLength)
         {
-            NetInt.Write(stream, RS_SIG_MAGIC);
+            NetInt.Write(stream, Const.RS_SIG_MAGIC);
             NetInt.Write(stream, chunkSize);
             NetInt.Write(stream, strongLength);
 

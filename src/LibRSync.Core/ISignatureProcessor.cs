@@ -1,6 +1,6 @@
 ﻿namespace LibRSync.Core
 {
-    interface ISignatureProcessor
+    public interface ISignatureProcessor
     {
         void Header(int chunkSize, int strongLength);
         void Chunk(long weak, byte[] strong);

@@ -112,8 +112,8 @@ namespace LibRSync.Core
 
         protected StateFunc Params()
         {
-            param1 = NetInt.ReadInt(delta, cmd.Len1);
-            param2 = NetInt.ReadInt(delta, cmd.Len2);
+            NetInt.ReadInt(delta, cmd.Len1, out param1);
+            NetInt.ReadInt(delta, cmd.Len1, out param2);
 
             return PatchRun;
         }

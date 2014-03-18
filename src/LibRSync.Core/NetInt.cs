@@ -16,20 +16,32 @@ namespace LibRSync.Core
 
         public static int ReadInt(Stream stream)
         {
-            return (int) ReadInt(stream, 4);
+            long i;
+            ReadInt(stream, 4, out i);
+
+            return (int) i;
         }
 
-        public static long ReadInt(Stream stream, int len)
+        public static bool ReadInt(Stream stream, int len, out long i)
         {
             var buf = new byte[8];
 
             if (len > 8)
                 throw new ArgumentException("len");
 
-            stream.Read(buf, 0, len);
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(buf, 0, len);
-            return BitConverter.ToInt64(buf, 0);
+            if (stream.Read(buf, 0, len) != 0)
+            {
+                if (BitConverter.IsLittleEndian)
+                    Array.Reverse(buf, 0, len);
+                i = BitConverter.ToInt64(buf, 0);
+
+                return true;
+            }
+            else
+            {
+                i = 0;
+                return false;
+            }
         }
     }
 }

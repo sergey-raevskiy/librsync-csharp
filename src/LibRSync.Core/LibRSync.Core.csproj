@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Checksum.cs" />
+    <Compile Include="Const.cs" />
     <Compile Include="DeltaJob.cs" />
     <Compile Include="IDeltaProcessor.cs" />
     <Compile Include="ISignatureProcessor.cs" />
@@ -53,7 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RDiff.cs" />
     <Compile Include="Rollsum.cs" />
+    <Compile Include="SignatureBuilder.cs" />
     <Compile Include="SignatureJob.cs" />
+    <Compile Include="SignatureLoadJob.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
