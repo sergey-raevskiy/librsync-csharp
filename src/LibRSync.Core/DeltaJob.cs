@@ -74,17 +74,21 @@ namespace LibRSync.Core
         private StateFunc Rotate()
         {
             var o = chunk[0];
-            var i = @new.ReadByte();
 
-            if (i == -1)
-                return Flush;
-
-            rs.Rotate((byte) i, o);
-
+            processor.Literal(new[] { o }, 0, 1);
             Array.Copy(chunk, 1, chunk, 0, chunkLen - 1);
-            chunk[chunkLen - 1] = (byte) i;
 
-            processor.Literal(new [] {o}, 0, 1);
+            var i = @new.ReadByte();
+            if (i != -1)
+            {
+                rs.Rotate((byte)i, o);
+                chunk[chunkLen - 1] = (byte)i;
+            }
+            else
+            {
+                rs.Rollout(o);
+                chunkLen--;
+            }
 
             return Search;
         }
