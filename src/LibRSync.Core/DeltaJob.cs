@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace LibRSync.Core
@@ -13,6 +14,8 @@ namespace LibRSync.Core
         private byte[] chunk;
         private int chunkLen;
         private Rollsum rs;
+
+        private List<byte> miss = new List<byte>();
 
         public DeltaJob(Signature signature,
                         Stream @new,
@@ -45,6 +48,11 @@ namespace LibRSync.Core
 
         private StateFunc Flush()
         {
+            if (miss.Count != 0)
+            {
+                processor.Literal(miss.ToArray(), 0, miss.Count);
+            }
+
             return Completed;
         }
 
@@ -63,7 +71,14 @@ namespace LibRSync.Core
                 var block = signature.LookupBlock(weak, strong);
                 if (block != null)
                 {
+                    if (miss.Count != 0)
+                    {
+                        processor.Literal(miss.ToArray(), 0, miss.Count);
+                        miss.Clear();
+                    }
+
                     processor.Copy(block.Start, chunkLen);
+
                     return ReadChunk;
                 }
             }
@@ -75,12 +90,12 @@ namespace LibRSync.Core
         {
             if (chunkLen == 0)
             {
-                return Completed;
+                return Flush;
             }
 
             var o = chunk[0];
 
-            processor.Literal(new[] { o }, 0, 1);
+            miss.Add(o);
             Array.Copy(chunk, 1, chunk, 0, chunkLen - 1);
 
             var i = @new.ReadByte();
