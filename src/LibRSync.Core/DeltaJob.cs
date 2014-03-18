@@ -73,6 +73,11 @@ namespace LibRSync.Core
 
         private StateFunc Rotate()
         {
+            if (chunkLen == 0)
+            {
+                return Completed;
+            }
+
             var o = chunk[0];
 
             processor.Literal(new[] { o }, 0, 1);
