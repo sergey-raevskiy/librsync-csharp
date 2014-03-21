@@ -2,12 +2,12 @@
 
 namespace LibRSync.Core.Compat
 {
-    internal class RSyncStreamSignatureWriter : ISignatureProcessor
+    internal class RSyncSignatureStreamWriter : ISignatureProcessor
     {
         private readonly Stream stream;
         private int strongLength;
 
-        public RSyncStreamSignatureWriter(Stream stream)
+        public RSyncSignatureStreamWriter(Stream stream)
         {
             this.stream = stream;
         }

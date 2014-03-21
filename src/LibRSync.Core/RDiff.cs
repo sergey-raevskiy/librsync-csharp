@@ -8,7 +8,7 @@ namespace LibRSync.Core
     {
         public void GetSignature(Stream input, Stream signature)
         {
-            var processor = new RSyncStreamSignatureWriter(signature);
+            var processor = new RSyncSignatureStreamWriter(signature);
             var job = new SignatureJob(input, processor);
             job.Run();
         }
