@@ -47,6 +47,7 @@
     <Compile Include="RollsumTests.cs" />
     <Compile Include="SignatureTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StrongSumTests.cs" />
     <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
