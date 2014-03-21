@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeltaTests.cs" />
+    <Compile Include="HashAlgorithmTest.cs" />
     <Compile Include="PatchTests.cs" />
     <Compile Include="RollsumTests.cs" />
     <Compile Include="SignatureTests.cs" />
