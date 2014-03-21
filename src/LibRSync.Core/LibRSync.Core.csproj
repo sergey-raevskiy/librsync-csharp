@@ -64,7 +64,7 @@
     <Compile Include="SignatureBuilder.cs" />
     <Compile Include="SignatureJob.cs" />
     <Compile Include="SignatureLoadJob.cs" />
-    <Compile Include="StreamProcessor.cs" />
+    <Compile Include="Compat\RSyncStreamSignatureWriter.cs" />
     <Compile Include="StrongSumAlgorithm.cs" />
     <Compile Include="StrongSum.cs" />
   </ItemGroup>

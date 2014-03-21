@@ -1,13 +1,13 @@
 ﻿using System.IO;
 
-namespace LibRSync.Core
+namespace LibRSync.Core.Compat
 {
-    internal class StreamProcessor : ISignatureProcessor
+    internal class RSyncStreamSignatureWriter : ISignatureProcessor
     {
         private readonly Stream stream;
         private int strongLength;
 
-        public StreamProcessor(Stream stream)
+        public RSyncStreamSignatureWriter(Stream stream)
         {
             this.stream = stream;
         }

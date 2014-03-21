@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Security.Cryptography;
+using LibRSync.Core.Compat;
 
 namespace LibRSync.Core
 {
@@ -7,7 +8,7 @@ namespace LibRSync.Core
     {
         public void GetSignature(Stream input, Stream signature)
         {
-            var processor = new StreamProcessor(signature);
+            var processor = new RSyncStreamSignatureWriter(signature);
             var job = new SignatureJob(input, processor);
             job.Run();
         }
