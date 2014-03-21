@@ -49,7 +49,7 @@
     <Compile Include="IDeltaProcessor.cs" />
     <Compile Include="ISignatureProcessor.cs" />
     <Compile Include="IStrongHashAlgorithm.cs" />
-    <Compile Include="Md4HashAlgorithm.cs" />
+    <Compile Include="Compat\Md4HashAlgorithm.cs" />
     <Compile Include="Opcode.cs" />
     <Compile Include="OpcodePrototypes.cs" />
     <Compile Include="OpKind.cs" />

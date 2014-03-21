@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using LibRSync.Core.Compat;
 
 namespace LibRSync.Core
 {
