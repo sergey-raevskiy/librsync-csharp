@@ -20,11 +20,14 @@ namespace LibRSync.Tests
             Assert.AreEqual(0, sum2.GetHashCode());
         }
 
-        [Test]
-        public void EqualityTest()
+        [TestCase("Hello world!")]
+        [TestCase("Hash engine")]
+        [TestCase("Umläut")]
+        [TestCase("Lol")]
+        public void EqualityTest(string input)
         {
-            var buf1 = Encoding.ASCII.GetBytes("Hello world!");
-            var buf2 = Encoding.ASCII.GetBytes("Hello world!");
+            var buf1 = Encoding.UTF8.GetBytes(input);
+            var buf2 = Encoding.UTF8.GetBytes(input);
 
             var sum1 = StrongHashAlgorithm.Md4.GetSum(buf1, 0, buf1.Length);
             var sum2 = StrongHashAlgorithm.Md4.GetSum(buf2, 0, buf1.Length);
