@@ -96,5 +96,10 @@ namespace LibRSync.Core
         }
 
         #endregion
+
+        public byte[] UnsafeGetBuffer()
+        {
+            return sum;
+        }
     }
 }
