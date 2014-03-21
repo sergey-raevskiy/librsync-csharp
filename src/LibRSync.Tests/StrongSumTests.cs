@@ -37,5 +37,19 @@ namespace LibRSync.Tests
 
             Assert.AreEqual(sum1.GetHashCode(), sum2.GetHashCode());
         }
+
+        [TestCase("Hello world!", "Hello world?")]
+        [TestCase("Hash engine", "HASH ENGINE")]
+        public void NonEqualityTest(string input1, string input2)
+        {
+            var buf1 = Encoding.UTF8.GetBytes(input1);
+            var buf2 = Encoding.UTF8.GetBytes(input2);
+
+            var sum1 = StrongHashAlgorithm.Md4.GetSum(buf1, 0, buf1.Length);
+            var sum2 = StrongHashAlgorithm.Md4.GetSum(buf2, 0, buf2.Length);
+
+            Assert.IsFalse(sum1.Equals(sum2));
+            Assert.IsFalse(sum2.Equals(sum1));
+        }
     }
 }
