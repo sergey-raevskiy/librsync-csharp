@@ -29,8 +29,8 @@ namespace LibRSync.Tests
             var buf1 = Encoding.UTF8.GetBytes(input);
             var buf2 = Encoding.UTF8.GetBytes(input);
 
-            var sum1 = StrongHashAlgorithm.Md4.GetSum(buf1, 0, buf1.Length);
-            var sum2 = StrongHashAlgorithm.Md4.GetSum(buf2, 0, buf2.Length);
+            var sum1 = StrongSumAlgorithm.Md4.GetSum(buf1, 0, buf1.Length);
+            var sum2 = StrongSumAlgorithm.Md4.GetSum(buf2, 0, buf2.Length);
 
             Assert.IsTrue(sum1.Equals(sum2));
             Assert.IsTrue(sum2.Equals(sum1));
@@ -45,8 +45,8 @@ namespace LibRSync.Tests
             var buf1 = Encoding.UTF8.GetBytes(input1);
             var buf2 = Encoding.UTF8.GetBytes(input2);
 
-            var sum1 = StrongHashAlgorithm.Md4.GetSum(buf1, 0, buf1.Length);
-            var sum2 = StrongHashAlgorithm.Md4.GetSum(buf2, 0, buf2.Length);
+            var sum1 = StrongSumAlgorithm.Md4.GetSum(buf1, 0, buf1.Length);
+            var sum2 = StrongSumAlgorithm.Md4.GetSum(buf2, 0, buf2.Length);
 
             Assert.IsFalse(sum1.Equals(sum2));
             Assert.IsFalse(sum2.Equals(sum1));

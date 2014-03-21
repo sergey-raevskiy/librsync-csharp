@@ -31,7 +31,7 @@
 
         public static byte[] Strong(byte[] buf, int len)
         {
-            return StrongHashAlgorithm.Md4.GetSum(buf, 0, len).UnsafeGetBuffer();
+            return StrongSumAlgorithm.Md4.GetSum(buf, 0, len).UnsafeGetBuffer();
         }
     }
 }

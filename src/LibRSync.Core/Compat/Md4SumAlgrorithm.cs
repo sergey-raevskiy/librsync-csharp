@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 namespace LibRSync.Core.Compat
 {
-    internal class Md4HashAlgorithm : IStrongHashAlgorithm
+    internal class Md4SumAlgrorithm : IStrongSumAlgrorithm
     {
         class Md4Engine : HashAlgorithm
         {

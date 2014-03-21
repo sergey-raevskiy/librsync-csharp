@@ -9,8 +9,8 @@ namespace LibRSync.Tests
         [Test]
         public void GetAlgorithTest()
         {
-            Assert.AreSame(StrongHashAlgorithm.Md4, StrongHashAlgorithm.GetAlgorithm("md4"));
-            Assert.IsNull(StrongHashAlgorithm.GetAlgorithm("super-srypto"));
+            Assert.AreSame(StrongSumAlgorithm.Md4, StrongSumAlgorithm.GetAlgorithm("md4"));
+            Assert.IsNull(StrongSumAlgorithm.GetAlgorithm("super-srypto"));
         }
     }
 }

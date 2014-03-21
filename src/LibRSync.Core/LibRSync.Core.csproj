@@ -48,8 +48,8 @@
     <Compile Include="DeltaJob.cs" />
     <Compile Include="IDeltaProcessor.cs" />
     <Compile Include="ISignatureProcessor.cs" />
-    <Compile Include="IStrongHashAlgorithm.cs" />
-    <Compile Include="Compat\Md4HashAlgorithm.cs" />
+    <Compile Include="IStrongSumAlgrorithm.cs" />
+    <Compile Include="Compat\Md4SumAlgrorithm.cs" />
     <Compile Include="Opcode.cs" />
     <Compile Include="OpcodePrototypes.cs" />
     <Compile Include="OpKind.cs" />
@@ -65,7 +65,7 @@
     <Compile Include="SignatureJob.cs" />
     <Compile Include="SignatureLoadJob.cs" />
     <Compile Include="StreamProcessor.cs" />
-    <Compile Include="StrongHashAlgorithm.cs" />
+    <Compile Include="StrongSumAlgorithm.cs" />
     <Compile Include="StrongSum.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

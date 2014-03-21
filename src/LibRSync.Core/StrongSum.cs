@@ -4,12 +4,12 @@ namespace LibRSync.Core
 {
     public struct StrongSum
     {
-        private IStrongHashAlgorithm alg;
+        private IStrongSumAlgrorithm alg;
 
         private byte[] sum;
         private int? hash;
 
-        internal StrongSum(byte[] sum, IStrongHashAlgorithm alg)
+        internal StrongSum(byte[] sum, IStrongSumAlgrorithm alg)
         {
             this.alg = alg;
             this.sum = sum;

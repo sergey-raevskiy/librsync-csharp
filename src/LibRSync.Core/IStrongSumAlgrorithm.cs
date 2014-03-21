@@ -1,6 +1,6 @@
 namespace LibRSync.Core
 {
-    public interface IStrongHashAlgorithm
+    public interface IStrongSumAlgrorithm
     {
         StrongSum GetSum(byte[] buf, int offset, int len);
     }
