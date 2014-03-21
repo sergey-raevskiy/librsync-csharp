@@ -7,7 +7,7 @@ namespace LibRSync.Core
 
     public class StrongHashAlgorithm
     {
-        public static IStrongHashAlgorithm Md4 = new Md4HashAlgorithm();
+        public static readonly IStrongHashAlgorithm Md4 = new Md4HashAlgorithm();
     }
 
     internal class Md4HashAlgorithm : IStrongHashAlgorithm
