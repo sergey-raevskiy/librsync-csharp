@@ -33,5 +33,10 @@ namespace LibRSync.Core
 
             @new.Write(data, (int) offset, (int) count);
         }
+
+        public void End()
+        {
+            Console.WriteLine("END");
+        }
     }
 }

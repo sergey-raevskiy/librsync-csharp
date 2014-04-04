@@ -56,5 +56,10 @@ namespace LibRSync.Core
 
             delta.Write(data, (int) offset, (int) count);
         }
+
+        public void End()
+        {
+            delta.WriteByte((byte) OpKind.End);
+        }
     }
 }

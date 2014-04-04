@@ -67,6 +67,8 @@ namespace LibRSync.Core
                 processor.Literal(miss.ToArray(), 0, miss.Count);
             }
 
+            processor.End();
+
             return Completed;
         }
 
