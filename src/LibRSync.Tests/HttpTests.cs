@@ -43,9 +43,22 @@ namespace LibRSync.Tests
             }
         }
 
+        private string oldDir;
+
         [SetUp]
         public void SetUp()
         {
+            oldDir = Directory.GetCurrentDirectory();
+            var newDir = Path.Combine(oldDir, TestContext.CurrentContext.Test.FullName.Replace("\"", ""));
+
+            if (Directory.Exists(newDir))
+            {
+                Directory.Delete(newDir, true);
+            }
+
+            Directory.CreateDirectory(newDir);
+            Directory.SetCurrentDirectory(newDir);
+
             var cfg = new HostConfiguration
             {
                 UrlReservations = new UrlReservations
@@ -57,7 +70,7 @@ namespace LibRSync.Tests
 
             var baseAddress = new Uri("http://localhost:12345");
 
-            host = new NancyHost(new TestBootstrapper(Directory.GetCurrentDirectory()), cfg, baseAddress);
+            host = new NancyHost(new TestBootstrapper(newDir), cfg, baseAddress);
             host.Start();
 
             Client = new HttpClient
@@ -71,6 +84,8 @@ namespace LibRSync.Tests
         {
             Client.Dispose();
             host.Dispose();
+
+            Directory.SetCurrentDirectory(oldDir);
         }
 
         private static readonly HttpMethod Patch = new HttpMethod("PATCH");
