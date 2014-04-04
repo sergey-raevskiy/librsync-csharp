@@ -49,7 +49,7 @@ namespace LibRSync.Tests
         public void SetUp()
         {
             oldDir = Directory.GetCurrentDirectory();
-            var newDir = Path.Combine(oldDir, TestContext.CurrentContext.Test.FullName.Replace("\"", ""));
+            var newDir = Path.Combine(oldDir, TestContext.CurrentContext.Test.FullName.Replace("\"", "").Replace("\\", "").Replace("<", "").Replace(">", ""));
 
             if (Directory.Exists(newDir))
             {
@@ -90,10 +90,10 @@ namespace LibRSync.Tests
 
         private static readonly HttpMethod Patch = new HttpMethod("PATCH");
 
-        [TestCase("delta.input.01.delta", "delta.input.01.expect")]
-        [TestCase("delta.input.02.delta", "delta.input.02.expect")]
-        [TestCase("delta.input.03.delta", "delta.input.03.expect")]
-        public void PatchTest(string deltaName, string expectedName)
+        [TestCase("delta.input.01.delta", "delta.input.01.expect", "\"1B2M2Y8AsgTpgAmY7PhCfg==\"")]
+        [TestCase("delta.input.02.delta", "delta.input.02.expect", "\"XUFAKrxLKna5cZ2REBfFkg==\"")]
+        [TestCase("delta.input.03.delta", "delta.input.03.expect", "\"b1kCrCNwJL3QwXbLkwY9xA==\"")]
+        public void PatchTest(string deltaName, string expectedName, string etag)
         {
             File.WriteAllBytes("file.txt", new byte[0]);
 
@@ -106,6 +106,8 @@ namespace LibRSync.Tests
             Assert.AreEqual(
                 StreamToArray(GetTestDataStream(expectedName)),
                 File.ReadAllBytes("file.txt"));
+
+            Assert.AreEqual(etag, res.Headers.ETag.Tag);
         }
     }
 }

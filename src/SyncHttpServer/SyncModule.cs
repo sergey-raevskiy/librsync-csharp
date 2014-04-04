@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using LibRSync.Core;
 using Nancy;
 
@@ -23,7 +24,16 @@ namespace SyncHttpServer
             var dir = Path.GetDirectoryName(filePath);
             tempPath = Path.Combine(dir, Guid.NewGuid().ToString("n"));
 
-            return File.Open(tempPath, FileMode.CreateNew, FileAccess.Write, FileShare.None);
+            return File.Open(tempPath, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None);
+        }
+
+        private string GetETag(Stream stream)
+        {
+            using (var md5 = new MD5Cng())
+            {
+                md5.ComputeHash(stream);
+                return Convert.ToBase64String(md5.Hash);
+            }
         }
 
         [Flags]
@@ -48,6 +58,7 @@ namespace SyncHttpServer
         {
             var path = Path.Combine(pathProvider.GetRootPath(), p.path);
             string tempPath;
+            string etag;
 
             using (var file = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Delete))
             {
@@ -55,13 +66,20 @@ namespace SyncHttpServer
                 {
                     var patchJob = new PatchJob(file, Request.Body, tempFile);
                     patchJob.Run();
+
+                    tempFile.Seek(0, SeekOrigin.Begin);
+                    etag = GetETag(tempFile);
                 }
             }
 
             if (!MoveFileEx(tempPath, path, MoveFileFlags.ReplaceExisting))
                 throw new Win32Exception();
 
-            return 204;
+            var response = new Response();
+            response.StatusCode = HttpStatusCode.NoContent;
+            response.Headers.Add("ETag", "\"" + etag + "\"");
+
+            return response;
         }
     }
 }
