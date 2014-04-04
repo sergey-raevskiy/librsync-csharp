@@ -7,11 +7,19 @@ namespace LibRSync.Core
     {
         public static void Write(Stream stream, int i)
         {
+            Write(stream, i, 4);
+        }
+
+        public static void Write(Stream stream, long i, int len)
+        {
             var bytes = BitConverter.GetBytes(i);
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(bytes);
 
-            stream.Write(bytes, 0, bytes.Length);
+            if (len > 8)
+                throw new ArgumentException("len");
+
+            stream.Write(bytes, 8 - len, len);
         }
 
         public static int ReadInt(Stream stream)

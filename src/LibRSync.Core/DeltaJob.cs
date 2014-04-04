@@ -32,6 +32,12 @@ namespace LibRSync.Core
 
         protected override StateFunc InitialState()
         {
+            return EmitHeader;
+        }
+
+        private StateFunc EmitHeader()
+        {
+            processor.Header();
             return ReadChunk;
         }
 

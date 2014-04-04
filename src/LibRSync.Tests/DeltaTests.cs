@@ -36,9 +36,17 @@ namespace LibRSync.Tests
 
                 old.Seek(0, SeekOrigin.Begin);
 
-                var proc = new PatchProcessor(old2, actual);
-                var deltaJob = new DeltaJob(builder.GetSignature(), @new, proc);
-                deltaJob.Run();
+                using (var delta = new MemoryStream())
+                {
+                    var deltaEmitter = new DeltaEmitter(delta);
+                    var deltaJob = new DeltaJob(builder.GetSignature(), @new, deltaEmitter);
+                    deltaJob.Run();
+
+                    delta.Seek(0, SeekOrigin.Begin);
+
+                    var patchJob = new PatchJob(old2, delta, actual);
+                    patchJob.Run();
+                }
 
                 actual.Seek(0, SeekOrigin.Begin);
                 @new.Seek(0, SeekOrigin.Begin);

@@ -21,8 +21,12 @@ namespace LibRSync.Core
             for (var i = 1; i <= 64; i++)
                 Emit(OpKind.Literal, i);
 
+            Debug.Assert(prototypes.Count == 65);
+
             foreach (var len in lens)
                 Emit(OpKind.Literal, 0, len);
+
+            Debug.Assert(prototypes.Count == 69);
 
             foreach (var len1 in lens)
                 foreach (var len2 in lens)

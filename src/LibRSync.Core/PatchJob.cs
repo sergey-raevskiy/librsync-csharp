@@ -3,10 +3,8 @@ using System.IO;
 
 namespace LibRSync.Core
 {
-    internal class PatchJob : Job
+    public class PatchJob : Job
     {
-        private const int RS_DELTA_MAGIC = 0x72730236;
-
         private readonly Stream delta;
         private readonly IDeltaProcessor deltaProcessor;
 
@@ -28,7 +26,7 @@ namespace LibRSync.Core
         protected StateFunc Params()
         {
             NetInt.ReadInt(delta, cmd.Len1, out param1);
-            NetInt.ReadInt(delta, cmd.Len1, out param2);
+            NetInt.ReadInt(delta, cmd.Len2, out param2);
 
             return PatchRun;
         }
@@ -86,7 +84,7 @@ namespace LibRSync.Core
         {
             var signature = NetInt.ReadInt(delta);
 
-            if (signature != RS_DELTA_MAGIC)
+            if (signature != Const.RS_DELTA_MAGIC)
                 throw new Exception();
 
             return CommandByte;

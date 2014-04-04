@@ -14,6 +14,9 @@ namespace LibRSync.Core
             this.@base = @base;
         }
 
+        public void Header()
+        {}
+
         public void Copy(long start, long length)
         {
             Console.WriteLine("COPY {0} {1}", start, length);
