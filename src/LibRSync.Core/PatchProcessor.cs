@@ -19,8 +19,6 @@ namespace LibRSync.Core
 
         public void Copy(long start, long length)
         {
-            Console.WriteLine("COPY {0} {1}", start, length);
-
             @base.Seek(start, SeekOrigin.Begin);
             var buf = new byte[length];
             @base.Read(buf, 0, buf.Length);
@@ -29,14 +27,10 @@ namespace LibRSync.Core
 
         public void Literal(byte[] data, long offset, long count)
         {
-            Console.WriteLine("LITERAL {0}", count);
-
             @new.Write(data, (int) offset, (int) count);
         }
 
         public void End()
-        {
-            Console.WriteLine("END");
-        }
+        {}
     }
 }

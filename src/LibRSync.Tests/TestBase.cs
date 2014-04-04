@@ -17,5 +17,14 @@ namespace LibRSync.Tests
                 return ms.ToArray();
             }
         }
+
+        protected static string Multiline(params string[] lines)
+        {
+            var writer = new StringWriter();
+            foreach (var line in lines)
+                writer.WriteLine(line);
+
+            return writer.ToString();
+        }
     }
 }
