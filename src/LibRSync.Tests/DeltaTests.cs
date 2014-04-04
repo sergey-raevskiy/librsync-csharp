@@ -116,6 +116,14 @@ namespace LibRSync.Tests
             "LITERAL 113",
             "COPY 0 4705",
             "END")]
+        [TestCase(
+            "changes.input.02.in", "changes.input.04.in",
+            "HEADER",
+            "LITERAL 113",
+            "COPY 0 4096",
+            "LITERAL 722",
+            "COPY 0 4705",
+            "END")]
         public void SanityTest(string oldFile, string newFile,
                                params string[] expected)
         {
