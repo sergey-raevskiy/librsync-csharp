@@ -66,8 +66,10 @@ namespace SyncHttpServer
                 {
                     var patchJob = new PatchJob(file, Request.Body, tempFile);
                     patchJob.Run();
+                }
 
-                    tempFile.Seek(0, SeekOrigin.Begin);
+                using (var tempFile = File.Open(tempPath, FileMode.Open, FileAccess.Read))
+                {
                     etag = GetETag(tempFile);
                 }
             }
