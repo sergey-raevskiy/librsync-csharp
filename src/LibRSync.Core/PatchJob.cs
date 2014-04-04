@@ -63,7 +63,7 @@ namespace LibRSync.Core
         {
             var b = delta.ReadByte();
             if (b == -1)
-                return Completed;
+                throw new FileFormatException("Unexpected end of file");
 
             cmd = OpcodePrototypes.Get((byte) b);
 
