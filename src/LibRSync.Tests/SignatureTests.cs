@@ -42,6 +42,7 @@ namespace LibRSync.Tests
             }
         }
 
+        [Test]
         public void SameBlockTest()
         {
             var r = new Random(1337);
