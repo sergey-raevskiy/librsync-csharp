@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using LibRSync.Core;
 using NUnit.Framework;
 
@@ -38,6 +39,26 @@ namespace LibRSync.Tests
 
                 Assert.AreEqual(2048, signature.ChunkSize);
                 Assert.AreEqual(8, signature.StrongLength);
+            }
+        }
+
+        public void SameBlockTest()
+        {
+            var r = new Random(1337);
+            var b = new byte[2048];
+            r.NextBytes(b);
+
+            using (var ms = new MemoryStream())
+            {
+                ms.Write(b, 0, b.Length);
+                ms.Write(b, 0, b.Length);
+                ms.Seek(0, SeekOrigin.Begin);
+
+                var builder = new SignatureBuilder();
+                var signatureJob = new SignatureJob(ms, builder);
+                signatureJob.Run();
+
+                var sig = builder.GetSignature();
             }
         }
     }

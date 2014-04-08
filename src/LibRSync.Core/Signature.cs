@@ -15,7 +15,12 @@ namespace LibRSync.Core
             ChunkSize = chunkSize;
             StrongLength = strongLength;
 
-            this.blocks = blocks.ToDictionary(b => b.Strong);
+            this.blocks = new Dictionary<StrongSum, BlockSign>();
+            foreach (var block in blocks)
+            {
+                if (!this.blocks.ContainsKey(block.Strong))
+                    this.blocks.Add(block.Strong, block);
+            }
 
             this.weaks = new HashSet<uint>();
             foreach (var block in this.blocks.Values)
