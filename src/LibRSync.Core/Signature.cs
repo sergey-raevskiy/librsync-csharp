@@ -5,7 +5,8 @@ namespace LibRSync.Core
 {
     public class Signature
     {
-        private Dictionary<uint, List<BlockSign>> blocks;
+        private Dictionary<StrongSum, BlockSign> blocks;
+        private HashSet<uint> weaks;
 
         public Signature(int chunkSize,
             int strongLength,
@@ -14,9 +15,13 @@ namespace LibRSync.Core
             ChunkSize = chunkSize;
             StrongLength = strongLength;
 
-            this.blocks = blocks.GroupBy(b => b.Weak)
-                .ToDictionary(g => g.Key,
-                    g => g.ToList());
+            this.blocks = blocks.ToDictionary(b => b.Strong);
+
+            this.weaks = new HashSet<uint>();
+            foreach (var block in this.blocks.Values)
+            {
+                weaks.Add(block.Weak);
+            }
         }
 
         public int ChunkSize { get; private set; }
@@ -24,15 +29,16 @@ namespace LibRSync.Core
 
         public bool HasWeak(uint weak)
         {
-            return blocks.ContainsKey(weak);
+            return weaks.Contains(weak);
         }
 
-        public BlockSign LookupBlock(uint weak, byte[] strong)
+        public BlockSign LookupBlock(uint weak, StrongSum strong)
         {
-            List<BlockSign> list;
-            if (blocks.TryGetValue(weak, out list))
+            BlockSign block;
+
+            if (blocks.TryGetValue(strong, out block))
             {
-                return list.SingleOrDefault(b => b.Strong.SequenceEqual(strong));
+                return block;
             }
             else
             {

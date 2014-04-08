@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace LibRSync.Core
@@ -12,7 +13,9 @@ namespace LibRSync.Core
         internal StrongSum(byte[] sum, IStrongSumAlgrorithm alg)
         {
             this.alg = alg;
-            this.sum = sum;
+            this.sum = new byte[sum.Length];
+            Array.Copy(sum, this.sum, sum.Length);
+
             this.hash = null;
         }
 

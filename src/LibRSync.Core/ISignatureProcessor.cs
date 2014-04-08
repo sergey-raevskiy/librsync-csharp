@@ -3,6 +3,6 @@
     public interface ISignatureProcessor
     {
         void Header(int chunkSize, int strongLength);
-        void Chunk(uint weak, byte[] strong);
+        void Chunk(uint weak, StrongSum strong);
     }
 }

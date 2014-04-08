@@ -53,7 +53,7 @@ namespace LibRSync.Core
 
             stream.Read(strong, 0, strong.Length);
 
-            processor.Chunk((uint)weak, strong);
+            processor.Chunk((uint)weak, new StrongSum(strong, StrongSumAlgorithm.Md4));
 
             return Read;
         }

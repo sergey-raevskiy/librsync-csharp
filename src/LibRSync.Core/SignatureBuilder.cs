@@ -19,7 +19,7 @@ namespace LibRSync.Core
             blocks.Clear();
         }
 
-        void ISignatureProcessor.Chunk(uint weak, byte[] strong)
+        void ISignatureProcessor.Chunk(uint weak, StrongSum strong)
         {
             var blockSign = new BlockSign(weak, strong)
             {

@@ -75,7 +75,7 @@ namespace LibRSync.Core
         private StateFunc Search()
         {
             var weak = rs.Digest;
-            byte[] strong = null;
+            StrongSum? strong = null;
 
             if (signature.HasWeak(weak))
             {
@@ -84,7 +84,7 @@ namespace LibRSync.Core
                     strong = Checksum.Strong(chunk, chunkLen);
                 }
 
-                var block = signature.LookupBlock(weak, strong);
+                var block = signature.LookupBlock(weak, strong.Value);
                 if (block != null)
                 {
                     if (miss.Count != 0)

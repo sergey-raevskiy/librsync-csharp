@@ -3,9 +3,9 @@ namespace LibRSync.Core
     public class BlockSign
     {
         public readonly uint Weak;
-        public readonly byte[] Strong;
+        public readonly StrongSum Strong;
 
-        public BlockSign(uint weak, byte[] strong)
+        public BlockSign(uint weak, StrongSum strong)
         {
             Weak = weak;
             Strong = strong;

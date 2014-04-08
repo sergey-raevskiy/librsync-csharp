@@ -29,9 +29,9 @@
             return (s1 & 0xffff) + (s2 << 16);
         }
 
-        public static byte[] Strong(byte[] buf, int len)
+        public static StrongSum Strong(byte[] buf, int len)
         {
-            return StrongSumAlgorithm.Md4.GetSum(buf, 0, len).UnsafeGetBuffer();
+            return StrongSumAlgorithm.Md4.GetSum(buf, 0, len);
         }
     }
 }

@@ -21,10 +21,10 @@ namespace LibRSync.Core.Compat
             this.strongLength = strongLength;
         }
 
-        public void Chunk(uint weak, byte[] strong)
+        public void Chunk(uint weak, StrongSum strong)
         {
             NetInt.Write(stream, (int)weak);
-            stream.Write(strong, 0, strongLength);
+            stream.Write(strong.UnsafeGetBuffer(), 0, strongLength);
         }
     }
 }
