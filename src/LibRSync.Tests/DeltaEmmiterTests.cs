@@ -7,9 +7,9 @@ namespace LibRSync.Tests
     [TestFixture]
     public class DeltaEmmiterTests : TestBase
     {
-        // ISSUE 2
+        // ISSUE 1
         [Test]
-        public void Issue2Test()
+        public void Issue1Test()
         {
             using (var ms = new MemoryStream())
             {
