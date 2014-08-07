@@ -9,7 +9,7 @@ namespace LibRSync.Tests
     {
         // ISSUE 2
         [Test]
-        public void LiteralOpcodeTest()
+        public void Issue2Test()
         {
             using (var ms = new MemoryStream())
             {
