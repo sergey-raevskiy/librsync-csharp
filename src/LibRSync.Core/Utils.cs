@@ -4,11 +4,11 @@
     {
         public static int GetIntLen(long i)
         {
-            if (i <= 0xff)
+            if ((i & ~0xffL) == 0)
                 return 1;
-            else if (i <= 0xffff)
+            else if ((i & ~0xffffL) == 0)
                 return 2;
-            else if (i <= 0xffffff)
+            else if ((i & ~0xffffffffL) == 0)
                 return 4;
             else
                 return 8;
