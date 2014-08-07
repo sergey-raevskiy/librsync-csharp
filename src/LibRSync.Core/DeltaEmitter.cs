@@ -1,10 +1,28 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace LibRSync.Core
 {
     public class DeltaEmitter : IDeltaProcessor
     {
         private readonly Stream delta;
+
+        private int GetOpcodeOffset(int len)
+        {
+            switch (len)
+            {
+                case 1:
+                    return 1;
+                case 2:
+                    return 2;
+                case 4:
+                    return 3;
+                case 8:
+                    return 4;
+                default:
+                    throw new ArgumentException();
+            }
+        }
 
         public DeltaEmitter(Stream delta)
         {
@@ -21,7 +39,7 @@ namespace LibRSync.Core
             var lStart = Utils.GetIntLen(start);
             var lLength = Utils.GetIntLen(length);
 
-            var op = ((lStart << 2) + lLength) + 64; // MAGIC
+            var op = ((GetOpcodeOffset(lStart) << 2) + GetOpcodeOffset(lLength)) + 64; // MAGIC
 
             delta.WriteByte((byte) op);
             NetInt.Write(delta, start, lStart);
@@ -37,7 +55,7 @@ namespace LibRSync.Core
             else
             {
                 var lCount = Utils.GetIntLen(count);
-                var op = lCount + 64;
+                var op = GetOpcodeOffset(lCount) + 64;
                 delta.WriteByte((byte)op);
                 NetInt.Write(delta, count, lCount);
             }
