@@ -11,18 +11,6 @@ namespace LibRSync.Core
             this.delta = delta;
         }
 
-        private int GetIntLen(long i)
-        {
-            if (i <= 0xff)
-                return 1;
-            else if (i <= 0xffff)
-                return 2;
-            else if (i <= 0xffffff)
-                return 4;
-            else
-                return 8;
-        }
-
         public void Header()
         {
             NetInt.Write(delta, Const.RS_DELTA_MAGIC);
@@ -30,8 +18,8 @@ namespace LibRSync.Core
 
         public void Copy(long start, long length)
         {
-            var lStart = GetIntLen(start);
-            var lLength = GetIntLen(length);
+            var lStart = Utils.GetIntLen(start);
+            var lLength = Utils.GetIntLen(length);
 
             var op = ((lStart << 2) + lLength) + 64; // MAGIC
 
@@ -48,7 +36,7 @@ namespace LibRSync.Core
             }
             else
             {
-                var lCount = GetIntLen(count);
+                var lCount = Utils.GetIntLen(count);
                 var op = lCount + 64;
                 delta.WriteByte((byte)op);
                 NetInt.Write(delta, count, lCount);
