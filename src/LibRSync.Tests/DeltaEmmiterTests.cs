@@ -27,12 +27,8 @@ namespace LibRSync.Tests
                 readJob.Run();
 
                 // 33554431 == 0x1ffffff
-                Assert.AreEqual(Multiline(
-                    "HEADER",
-                    "LITERAL 33554431",
-                    "COPY 33554431 33554431",
-                    "END"),
-                    processor.ToString());
+                Assert.AreEqual(Multiline("LITERAL 33554431", "COPY 33554431 33554431"),
+                                processor.ToString());
             }
         }
     }
