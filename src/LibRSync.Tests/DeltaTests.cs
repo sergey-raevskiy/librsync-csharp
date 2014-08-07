@@ -45,7 +45,7 @@ namespace LibRSync.Tests
 
                     delta.Seek(0, SeekOrigin.Begin);
 
-                    var patchJob = new PatchJob(old2, delta, actual);
+                    var patchJob = new DeltaReadJob(delta, new PatchProcessor(old2, actual));
                     patchJob.Run();
                 }
 
@@ -53,36 +53,6 @@ namespace LibRSync.Tests
                 @new.Seek(0, SeekOrigin.Begin);
 
                 Assert.AreEqual(StreamToArray(@new), StreamToArray(actual));
-            }
-        }
-
-        private class HumanReadableDeltaWriter : IDeltaProcessor
-        {
-            private StringWriter writer = new StringWriter();
-
-            public void Header()
-            {
-                writer.WriteLine("HEADER");
-            }
-
-            public void Copy(long start, long length)
-            {
-                writer.WriteLine("COPY {0} {1}", start, length);
-            }
-
-            public void Literal(byte[] data, long offset, long count)
-            {
-                writer.WriteLine("LITERAL {0}", count);
-            }
-
-            public void End()
-            {
-                writer.WriteLine("END");
-            }
-
-            public override string ToString()
-            {
-                return writer.ToString();
             }
         }
 

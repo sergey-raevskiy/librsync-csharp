@@ -3,19 +3,20 @@ using System.IO;
 
 namespace LibRSync.Core
 {
-    public class PatchJob : Job
+    public class DeltaReadJob : Job
     {
         private readonly Stream delta;
-        private readonly IDeltaProcessor deltaProcessor;
+        private readonly IDeltaProcessor processor;
 
         private Opcode cmd;
         private long param1;
         private long param2;
 
-        public PatchJob(Stream @base, Stream delta, Stream @new) : base("patch")
+        public DeltaReadJob(Stream delta,IDeltaProcessor processor)
+            : base("read-delta")
         {
             this.delta = delta;
-            this.deltaProcessor = new PatchProcessor(@base, @new);
+            this.processor = processor;
         }
 
         protected override StateFunc InitialState()
@@ -35,14 +36,14 @@ namespace LibRSync.Core
         {
             var buf = new byte[param1];
             delta.Read(buf, 0, buf.Length);
-            deltaProcessor.Literal(buf, 0, buf.Length);
+            processor.Literal(buf, 0, buf.Length);
 
             return CommandByte;
         }
 
         private StateFunc Copy()
         {
-            deltaProcessor.Copy(param1, param2);
+            processor.Copy(param1, param2);
 
             return CommandByte;
         }

@@ -55,7 +55,7 @@
     <Compile Include="OpKind.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="NetInt.cs" />
-    <Compile Include="PatchJob.cs" />
+    <Compile Include="DeltaReadJob.cs" />
     <Compile Include="PatchProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RDiff.cs" />

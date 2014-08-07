@@ -64,7 +64,7 @@ namespace SyncHttpServer
             {
                 using (var tempFile = OpenTempFile(path, out tempPath))
                 {
-                    var patchJob = new PatchJob(file, Request.Body, tempFile);
+                    var patchJob = new DeltaReadJob(Request.Body, new PatchProcessor(file, tempFile));
                     patchJob.Run();
                 }
 
