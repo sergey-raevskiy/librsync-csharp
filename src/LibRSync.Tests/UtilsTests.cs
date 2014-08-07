@@ -14,7 +14,8 @@ namespace LibRSync.Tests
         [TestCase(0x1ffffff, 4)]
         [TestCase(0xffffabcd, 4)]
         [TestCase(0x1ffffabcd, 8)]
-        [TestCase(0xabcdabcddeadeadL, 8)]
+        [TestCase(0x7BCDabcdDEADBEEFL, 8)]
+        [TestCase(0x7BCDabcd00000000L, 8)]
         public void IntLenTest(long i, int expected)
         {
             Assert.AreEqual(expected, Utils.GetIntLen(i));
