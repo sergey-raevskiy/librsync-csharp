@@ -10,7 +10,7 @@ namespace LibRSync.Core
         private byte[] sum;
         private int? hash;
 
-        internal StrongSum(byte[] sum, IStrongSumAlgrorithm alg)
+        public StrongSum(byte[] sum, IStrongSumAlgrorithm alg)
         {
             this.alg = alg;
             this.sum = new byte[sum.Length];
@@ -36,7 +36,7 @@ namespace LibRSync.Core
                 Debug.Assert(sum.Length == other.sum.Length);
 
                 for (var i=0; i<sum.Length; i++)
-                    if (*t != *o)
+                    if (t[i] != o[i])
                         return false;
             }
 

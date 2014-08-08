@@ -51,5 +51,14 @@ namespace LibRSync.Tests
             Assert.IsFalse(sum1.Equals(sum2));
             Assert.IsFalse(sum2.Equals(sum1));
         }
+
+        [Test]
+        public void Issue3Test()
+        {
+            var sum1 = new StrongSum(new byte[] {1, 2, 3, 4}, null);
+            var sum2 = new StrongSum(new byte[] {1, 3, 4, 2}, null);
+
+            Assert.AreNotEqual(sum1, sum2);
+        }
     }
 }
