@@ -55,10 +55,19 @@ namespace LibRSync.Tests
         [Test]
         public void Issue3Test()
         {
-            var sum1 = new StrongSum(new byte[] {1, 2, 3, 4}, null);
-            var sum2 = new StrongSum(new byte[] {1, 3, 4, 2}, null);
+            {
+                var sum1 = new StrongSum(new byte[] {1, 2, 3, 4}, null);
+                var sum2 = new StrongSum(new byte[] {1, 2, 3, 4}, null);
 
-            Assert.AreNotEqual(sum1, sum2);
+                Assert.AreEqual(sum1, sum2);
+            }
+
+            {
+                var sum1 = new StrongSum(new byte[] {1, 2, 3, 4}, null);
+                var sum2 = new StrongSum(new byte[] {1, 1, 1, 1}, null);
+
+                Assert.AreNotEqual(sum1, sum2);
+            }
         }
     }
 }
