@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibRSync.Core", "LibRSync.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibRSync.Tests", "LibRSync.Tests\LibRSync.Tests.csproj", "{268FCB7E-03B3-4DBF-8633-0CFF07E13901}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncHttpServer", "SyncHttpServer\SyncHttpServer.csproj", "{ED638DD5-E755-4B7A-940D-5C94AB425686}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,10 +19,6 @@ Global
 		{268FCB7E-03B3-4DBF-8633-0CFF07E13901}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{268FCB7E-03B3-4DBF-8633-0CFF07E13901}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{268FCB7E-03B3-4DBF-8633-0CFF07E13901}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED638DD5-E755-4B7A-940D-5C94AB425686}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED638DD5-E755-4B7A-940D-5C94AB425686}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED638DD5-E755-4B7A-940D-5C94AB425686}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED638DD5-E755-4B7A-940D-5C94AB425686}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
